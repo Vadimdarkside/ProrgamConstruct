@@ -1,8 +1,10 @@
 ﻿
 
 using Composite.Classes;
+using Composite.Classes_Node;
 using Composite.Patterns.Observer;
 //--------------Observer
+Console.WriteLine("///////Observer///////---------------------------------------");
 
 LightElementNode div = new LightElementNode("form");
 
@@ -25,4 +27,16 @@ Click click = new Click();
 btn.AddEventListener("click",click.ClickMethod);//створення
 btn.AddEventListener("click",click.ClickMethod2);//створення
 btn.GenerateEvents("click");//уявний клік
+
+//--------------Strategy
+Console.WriteLine("///////Strategy///////---------------------------------------");
+
+ImgNode img = new ImgNode("C:\\Users\\vadim\\Downloads\\foto\\2.jpg");//any img local
+ImgNode img2 = new ImgNode("https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FIMG_%2528company%2529&psig=AOvVaw3XaD6JLz5RVSUwzH30z3KQ&ust=1685050518627000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCLjK5r70jv8CFQAAAAAdAAAAABAE");//web
+ImgNode img3 = new ImgNode("eefeefef");//error
+
+Console.WriteLine(img.GetOuterHtml());
+Console.WriteLine(img2.GetOuterHtml());
+Console.WriteLine(img3.GetOuterHtml());
+
 
