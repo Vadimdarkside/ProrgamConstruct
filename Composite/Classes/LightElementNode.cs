@@ -1,7 +1,9 @@
 ﻿using Composite.Interfaces;
+using Composite.Patterns.Observer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -17,6 +19,33 @@ namespace Composite.Classes
         public byte TagCloseType { set; get; } //close = 1; no close = 0;
         public Style? Style { set; get; }
         public List<LightNode> Nodes { set; get; } = new List<LightNode>();
+
+        private event EventHandler<EventListenerHandler> EventListenerClick;
+        private event EventHandler<EventListenerHandler> EventListenerHover;
+
+        public void AddEventListener(string name,EventHandler<EventListenerHandler> del) 
+        {   
+            if(name == "click")
+                EventListenerClick += del;
+            else if(name == "hover")
+                EventListenerHover += del;
+        }
+
+        public void GenerateEvents(string name)
+        {
+            if (name == "click")
+            {
+                Console.WriteLine("Event 'click' generated");
+                if (EventListenerClick != null)
+                    EventListenerClick(this, new EventListenerHandler("click"));
+            }
+            if (name == "hover")
+            {
+                Console.WriteLine("Event 'hover' generated");
+                if (EventListenerHover != null)
+                    EventListenerHover(this, new EventListenerHandler("hover"));
+            }
+        }
 
         public LightElementNode(string TagName, byte TagType = 1, byte TagCloseType = 1)
         { 
