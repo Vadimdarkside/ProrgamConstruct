@@ -3,6 +3,7 @@
 using Composite.Classes;
 using Composite.Classes_Node;
 using Composite.Patterns.Observer;
+using Composite.Patterns.Template.Lifecycle_hooks;
 //--------------Observer
 Console.WriteLine("///////Observer///////---------------------------------------");
 
@@ -39,4 +40,10 @@ Console.WriteLine(img.GetOuterHtml());
 Console.WriteLine(img2.GetOuterHtml());
 Console.WriteLine(img3.GetOuterHtml());
 
+//--------------Template
+Console.WriteLine("///////Template///////---------------------------------------");
+
+
+LightNode newNode = new NodeTemplateCreatorLog().CreateNode("tag");
+Console.WriteLine(newNode.GetOuterHtml());
 
