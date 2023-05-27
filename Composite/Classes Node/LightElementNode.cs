@@ -1,9 +1,11 @@
 ﻿using Composite.Interfaces;
 using Composite.Patterns.Observer;
+using Composite.Patterns.State;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -78,27 +80,14 @@ namespace Composite.Classes
 
         public override string GetOuterHtml()
         {
-            StringBuilder tag = new StringBuilder();
-            if (this.TagCloseType == 1)
+            OuterHTMLContext Context = new OuterHTMLContext(new CloseType1State());
+            string? result = "";
+            for (int i = 1; i <= 2; i++)
             {
-                tag.Append($"<{this.TagName}{this.Style?.ToString()}>\n");
-                if (this.Nodes != null)
-                {
-                    foreach (var node in Nodes)
-                    {
-                        if (node is LightTextNode)
-                            tag.Append(node.GetContent());
-                        else
-                            tag.Append(node.GetOuterHtml());
-                    }
-                }
-                tag.Append($"</{this.TagName}>\n");
+                Context.GetOuterHtml(ref result, this);
+                Context.Next();
             }
-            if (this.TagCloseType == 0)
-            {
-                tag.Append($"<{this.TagName} {this.Style?.ToString()}/>\n");
-            }
-            return tag.ToString();
+            return result;
         }
         public string GetInnerHtml()
         {
