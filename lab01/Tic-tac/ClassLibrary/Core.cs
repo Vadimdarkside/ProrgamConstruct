@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
@@ -41,7 +38,7 @@ namespace ClassLibrary
         public void Start()
         {
             bool gameRepeating = true;
-            while(gameRepeating)
+            while (gameRepeating)
             {
                 this.Play();
                 Console.WriteLine("Do you want to play again? (y/n)");
@@ -51,7 +48,7 @@ namespace ClassLibrary
                     ReloadParamsForContinuing();
                     gameRepeating = true;
                 }
-                else 
+                else
                     gameRepeating = false;
             }
         }
@@ -60,7 +57,7 @@ namespace ClassLibrary
         {
             do
             {
-                
+
                 if (this.VerifyWinner())
                 {
                     this.PrintInfo();
@@ -95,9 +92,9 @@ namespace ClassLibrary
         }
         protected void BoardAction()
         {
-           
+
             board.ShowBoard();
-            int number = VerifyCellNumber();
+            string number = VerifyCellNumber();
             board.InsertSignToCurrentPlace(number, this.CurrentPlayer);
         }
         protected void ChangeTurn()
@@ -110,8 +107,8 @@ namespace ClassLibrary
             int rowCount = this.board.rowCount;
             int columnCount = this.board.columnCount;
 
-            List<int[]> lines = new List<int[]> { new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, new int[] { 7, 8, 9 },
-            new int[] { 1, 4, 7 },new int[] { 2, 5, 8 },new int[] { 3, 6, 9 },new int[] { 1, 5, 9 },new int[] { 3, 5, 7 }};
+            List<string[]> lines = new List<string[]> { new string[] { "A", "B", "C" }, new string[] { "D", "E", "F" }, new string[] { "G", "H", "i" },
+            new string[] { "A", "D", "G" },new string[] { "B", "E", "H" },new string[] { "C", "F", "I" },new string[] { "A", "E", "I" },new string[] { "C", "E", "G" }};
 
             for (int i = 0; i < lines.Count; i++)
             {
@@ -136,36 +133,38 @@ namespace ClassLibrary
             {
                 Console.WriteLine($"{this.Winner.Name} won. Congratulations.");
             }
-            else { 
+            else
+            {
                 Console.WriteLine($"It’s a draw.. Congratulations.");
 
             }
         }
-        protected int VerifyCellNumber()
+        protected string VerifyCellNumber()
         {
             string strNumber = "0";
-            int number = 0;
-            bool condition = false; 
+            string input = "";
+            bool condition = false;
             while (!condition)
             {
                 Console.Write("Enter position: ");
-                if ((!int.TryParse(strNumber = Console.ReadLine(), out number)) || (number > 9 || number < 1))
+                input = Console.ReadLine().ToUpper();
+                if (!(input.Length == 1 && input[0] >= 'A' && input[0] <= 'I'))
                 {
                     Console.WriteLine($"There is no cell \"{strNumber}\" on the field");
                 }
                 else
                 {
-                    Cell cell = Cell.GetCellInNumber(number, board.Grid);
+                    Cell cell = Cell.GetCellInNumber(input, board.Grid);
                     if (cell.Number.ToString() != cell.CurrentSign)
                     {
-                        Console.WriteLine($"Cell \"{number}\" is already set.");
+                        Console.WriteLine($"Cell \"{input}\" is already set.");
                     }
                     else
                         condition = true;
                 }
 
             };
-            return number;
+            return input;
         }
 
         protected void IncrementWinnerScore()
@@ -183,61 +182,7 @@ namespace ClassLibrary
             Player.ExChangeSigns(this.player1, this.player2);
             Player.RandomTurn(this.player1, this.player2);
             this.currentStateGame = true;
-            this.board.FillBoardFrom1To9();
+            this.board.FillBoardFromAToI();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //protected bool VerifyWinner(out Player player)
-        //{
-        //    //Row
-        //    //for (int i = 0; i < rowCount; i++)
-        //    //{
-        //    //    if (this.board.Grid[i, 0].CurrentSign == this.board.Grid[i, 1].CurrentSign && this.board.Grid[i, 0].CurrentSign == this.board.Grid[i, 2].CurrentSign)  
-        //    //    {
-        //    //        player = this.board.Grid[i, 0].WhoChanged;
-        //    //        return true;
-        //    //    }
-        //    //}
-        //    ////Column
-        //    //for (int i = 0; i < rowCount; i++)
-        //    //{
-        //    //    if (this.board.Grid[0, i].CurrentSign == this.board.Grid[1, i].CurrentSign && this.board.Grid[0, i].CurrentSign == this.board.Grid[2, i].CurrentSign)
-        //    //    {
-        //    //        player = this.board.Grid[0, i].WhoChanged;
-        //    //        return true;
-        //    //    }
-        //    //}
-        //    ////Diagonal Main
-        //    //if (this.board.Grid[0, 0].CurrentSign == this.board.Grid[1, 1].CurrentSign && this.board.Grid[0, 0].CurrentSign == this.board.Grid[2, 2].CurrentSign)
-        //    //{
-
-        //    //    player = this.board.Grid[0, 0].WhoChanged;
-        //    //    return true;
-        //    //}
-        //    ////Diagonal Second
-        //    //if (this.board.Grid[0, 2].CurrentSign == this.board.Grid[1, 1].CurrentSign && this.board.Grid[0, 2].CurrentSign == this.board.Grid[2, 0].CurrentSign)
-        //    //{
-        //    //    player = this.board.Grid[0, 2].WhoChanged;
-        //    //    return true;
-        //    //}
-        //    //else
-        //    {
-        //        player = null;
-        //        return false;
-        //    }
-
-        //}
     }
 }

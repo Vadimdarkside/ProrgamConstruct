@@ -1,5 +1,4 @@
 ﻿using System;
-using ClassLibrary;
 
 namespace ClassLibrary
 {
@@ -31,11 +30,11 @@ namespace ClassLibrary
         }
 
         public Player() { this.score = 0; }
-        public Player(string name, string sign = null) 
+        public Player(string name, string sign = null)
         {
             this.name = name;
-            this.sign = sign; 
-            this.score = 0; 
+            this.sign = sign;
+            this.score = 0;
         }
 
         public void GetSignMessage(bool ShowScore)
@@ -75,14 +74,15 @@ namespace ClassLibrary
             else return player2;
         }
 
-        public static void ChangeTurn(Player Current ,Player player1, Player player2)
+        public static void ChangeTurn(Player Current, Player player1, Player player2)
         {
             if (Current == player1)
             {
                 player1.CurrentTurn = false;
                 player2.CurrentTurn = true;
             }
-            else {
+            else
+            {
                 player1.CurrentTurn = true;
                 player2.CurrentTurn = false;
             }

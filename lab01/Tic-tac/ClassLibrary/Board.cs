@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
@@ -16,18 +12,22 @@ namespace ClassLibrary
             get { return grid; }
         }
 
-        public Board() {
-            this.grid = new Cell[rowCount, columnCount];
-            this.FillBoardFrom1To9();
-        }
-        public void FillBoardFrom1To9()
+        public Board()
         {
-            int counter = 1;
+            this.grid = new Cell[rowCount, columnCount];
+            this.FillBoardFromAToI();
+        }
+        public void FillBoardFromAToI()
+        {
+            int counter = 0;
             for (int i = 0; i < rowCount; i++)
+            {
                 for (int j = 0; j < columnCount; j++)
                 {
-                    this.grid[i, j] = new Cell(counter++);
+                    this.grid[i, j] = new Cell(Convert.ToChar('A' + counter).ToString());
+                    counter += 1;
                 }
+            }
         }
 
         public void ShowBoard()
@@ -36,8 +36,8 @@ namespace ClassLibrary
             {
                 for (int j = 0; j < columnCount; j++)
                 {
-                    Console.Write($"{this.grid[i,j].CurrentSign,3}");
-                    if(j < columnCount-1)
+                    Console.Write($"{this.grid[i, j].CurrentSign,3}");
+                    if (j < columnCount - 1)
                         Console.Write($"{"|",3}");
 
                 }
@@ -46,40 +46,41 @@ namespace ClassLibrary
             }
         }
 
-        public void InsertSignToCurrentPlace(int number, Player player)
+        public void InsertSignToCurrentPlace(string number, Player player)
         {
             switch (number)
             {
-                case 1:this.InsertSign(1, player);
+                case "A":
+                    this.InsertSign("A", player);
                     break;
-                case 2:
-                    this.InsertSign(2, player);
+                case "B":
+                    this.InsertSign("B", player);
                     break;
-                case 3:
-                    this.InsertSign(3, player);
+                case "C":
+                    this.InsertSign("C", player);
                     break;
-                case 4:
-                    this.InsertSign(4, player);
+                case "D":
+                    this.InsertSign("D", player);
                     break;
-                case 5:
-                    this.InsertSign(5, player);
+                case "E":
+                    this.InsertSign("E", player);
                     break;
-                case 6:
-                    this.InsertSign(6, player);
+                case "F":
+                    this.InsertSign("F", player);
                     break;
-                case 7:
-                    this.InsertSign(7, player);
+                case "G":
+                    this.InsertSign("G", player);
                     break;
-                case 8:
-                    this.InsertSign(8, player);
+                case "H":
+                    this.InsertSign("H", player);
                     break;
-                case 9:
-                    this.InsertSign(9, player);
+                case "I":
+                    this.InsertSign("I", player);
                     break;
             }
         }
 
-        protected void InsertSign(int number, Player player)
+        protected void InsertSign(string number, Player player)
         {
             for (int i = 0; i < rowCount; i++)
             {
@@ -110,6 +111,6 @@ namespace ClassLibrary
                 state = true;
             return state;
         }
-        
+
     }
 }

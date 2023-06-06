@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClassLibrary
+﻿namespace ClassLibrary
 {
     public class Cell
     {
         protected string currentSign;
-        protected int number;
+        protected string number;
         protected Player whoChanged = null;
-        public int Number{
+        public string Number
+        {
             set { this.number = value; }
             get { return number; }
         }
@@ -26,13 +21,13 @@ namespace ClassLibrary
             get { return whoChanged; }
         }
 
-        public Cell(int number)
+        public Cell(string number)
         {
             this.CurrentSign = number.ToString();
             this.number = number;
         }
 
-        public static Cell GetCellInNumber(int number, Cell[,] grid)
+        public static Cell GetCellInNumber(string number, Cell[,] grid)
         {
             Cell found = null;
             for (int i = 0; i < grid.GetLength(0); i++)

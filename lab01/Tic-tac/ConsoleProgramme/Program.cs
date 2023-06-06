@@ -1,5 +1,4 @@
-﻿using System;
-using ClassLibrary;
+﻿using ClassLibrary;
 
 namespace ConsoleProgramme
 {
